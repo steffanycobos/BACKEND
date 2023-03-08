@@ -1,0 +1,21 @@
+
+<h1>List of Products</h1>
+<body>
+<div id="updated-products">
+{{# each allProducts}}
+<div>
+<b>Product with id: {{id}}</b> <br/>
+Name: {{title}} <br />
+Price: {{price}} <br />
+Description: {{description}} <br />
+Stock: {{stock}} <br />
+</div>
+{{/each}}
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/index.js"></script>
+</body>
+</html>
+

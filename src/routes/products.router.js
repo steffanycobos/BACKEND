@@ -31,14 +31,14 @@ productsRouter.get("/:pid", async (req, res) => {
 
 productsRouter.post("/", async (req, res) => {
   const { title, description, price, thumbnail, code, stock } = req.body;
-  const newProd = await manager.addProducts({
+  const newProd = await manager.addProducts(
     title,
     description,
     price,
     thumbnail,
     code,
     stock,
-  });
+  );
   res.send(newProd);
 });
 

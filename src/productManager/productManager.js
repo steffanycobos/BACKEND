@@ -12,7 +12,6 @@ class ProductManager {
   
   async getProducts() {
     //Obtener productos
-    console.log(this.#path)
     try {
       const products = await fs.promises.readFile(this.#path,'utf-8');
       return JSON.parse(products);
@@ -27,12 +26,10 @@ class ProductManager {
     const prod = await this.getProducts();
     const newProduct = {
       id: prod.length,
-      status:true,
       title,
       description,
       price,
       code,
-      thumbnail:[],
       stock,
       category
     };
@@ -111,10 +108,8 @@ if(!actual){
     let checkId = prod.find((x) => x.id === id);
     if (checkId) {
       let rest = prod.filter((x) => x.id !== id);
-      fs.promises.writeFile(
-        JSON.stringify(rest)
-      );
-      return rest
+      fs.promises.writeFile(this.#path, JSON.stringify(rest));
+      return JSON.stringify(rest)
     } else {
       throw new Error(` No se encuentra ningún objeto con id: ${id}`);
     }
