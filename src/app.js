@@ -29,7 +29,7 @@ let productList = await manager.getProducts();
 
 const socketServer = new Server(httpServer);
 socketServer.on("connection", (socket) => {
-  console.log("Nuevo cliente conectado!");
+  console.log("New client connected!");
   socket.emit("product-list", productList);
   app.use((req, res, next) => {
     req.socketServer = socketServer;
