@@ -1,22 +1,23 @@
-import CartManager from "./files-manager/cartManager.js";
-import ProductManager from "./files-manager/productManager.js";
-import productsDBManager from "./db-managers/products.dao.manager.js";
-import cartsDBManager from "./db-managers/carts.dao.manager.js";
+import FileProductManager from "./files-manager/productManager.js";
+import DbProductManager from "./db-managers/products.dao.manager.js";
+import FileCartManager from "./files-manager/cartManager.js";
+import DbCartManager from "./db-managers/carts.dao.manager.js";
 
 const config = {
-    persistenceType: "db",
-  };
+  persistenceType: "db",
+};
 
-  let ProductManagerDB, CartManagerDB
+let ProductManager, CartManager;
 
-  if (config.persistenceType === "db") {
-   ProductManagerDB = productsDBManager;
-    CartManagerDB = cartsDBManager;
-  } else if (config.persistenceType === "file") {
-    ProductManagerDB = CartManager;
-    CartManagerDB = ProductManager;
-  } else {
-    throw new Error("Unknown persistence type");
-  }
-  
-  export  {ProductManagerDB, CartManagerDB };
+if (config.persistenceType === "db") {
+  ProductManager =DbProductManager;
+  CartManager =DbCartManager;
+} else if (config.persistenceType === "file") {
+  ProductManager = FileProductManager;
+  CartManager = FileCartManager;
+} else {
+  throw new Error("Unknown persistence type");
+}
+
+export { ProductManager, CartManager };
+

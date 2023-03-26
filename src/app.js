@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 import productsRouter from "./routes/products.router.js";
 import cartRouter from "./routes/cart.router.js";
 import messageRouter from "./routes/messages.routes.js";
+import viewsRouter from "./routes/views.router.js";
 import __dirname from "./utils.js";
 import { engine } from "express-handlebars";
-import viewsRouter from "./routes/views.router.js";
 import { Server } from "socket.io";
 //import ProductManager from "./dao/files-manager/productManager.js";
 import ProductManager from "./dao/db-managers/products.dao.manager.js";
@@ -42,7 +42,6 @@ app.use("/api/carts", cartRouter);
 app.use("/", viewsRouter);
 app.use("/real-time-products,", viewsRouter);
 app.use("/api/messages", messageRouter);
-
 
 
 
