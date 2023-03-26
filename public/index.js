@@ -2,5 +2,56 @@ const socket = io();
 
 const productList = document.getElementById("updated-products");
 socket.on("product-list", (data) => {
-  productList.innerHTML = JSON.stringify(data);
+  productList.innerHTML = JSON.stringify(data)
+  });
+
+
+let username;
+
+Swal.fire({
+  title: "Identifícate",
+  input: "text",
+  text: "Ingresa tu nombre de usuario",
+  inputValidator: (value) => {
+    return !value && "Es obligatorio introducir un nombre de usuario";
+  },
+  allowOutsideClick: false,
+}).then((result) => {
+  username = result.value;
+
+  socket.emit("new-user", username);
 });
+
+const chatInput = document.getElementById("chat-input");
+chatInput.addEventListener("keyup", (ev) => {
+  if (ev.key === "Enter") {
+    const inputMessage = chatInput.value;
+
+    if (inputMessage.trim().length > 0) {
+      socket.emit("chat-message", { username, message: inputMessage });
+
+      chatInput.value = "";
+    }
+  }
+});
+
+const messagesPanel = document.getElementById("messages-panel");
+socket.on("messages", (data) => {
+  console.log(data);
+  let messages = "";
+
+  data.forEach((m) => {
+    messages += `<b>${m.username}:</b> ${m.message}</br>`;
+  });
+
+  messagesPanel.innerHTML = messages;
+});
+
+socket.on("new-user", (username) => {
+  Swal.fire({
+    title: `${username} se ha unido al chat`,
+    toast: true,
+    position: "top-end",
+  });
+});
+ 

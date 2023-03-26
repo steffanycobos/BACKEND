@@ -1,5 +1,5 @@
 import fs from "fs";
-import __dirname from "../utils.js";
+import __dirname from "../../utils.js";
 
 
 
@@ -25,7 +25,6 @@ class ProductManager {
     //Agregar producto sin repetir el code
     const prod = await this.getProducts();
     const newProduct = {
-      id: prod.length,
       title,
       description,
       price,
